@@ -16,6 +16,7 @@ public class ArrayDeque<MyType> {
     private double R;
 
     final int minSize = 16;
+    private boolean isFull;
 
 
     // create an empty array
@@ -25,6 +26,7 @@ public class ArrayDeque<MyType> {
         nextFirst = 7;
         nextLast = 0;
         R = 0.0;
+        isFull = false;
     }
 
     // create a deep copy of other
@@ -34,6 +36,7 @@ public class ArrayDeque<MyType> {
         nextFirst = 7;
         nextLast = 0;
         R = 0.0;
+        isFull = false;
         for (int i = 0; i < other.size(); i++) {
             addLast(other.get(i));
         }
@@ -77,6 +80,9 @@ public class ArrayDeque<MyType> {
         nextFirst = leftMove(nextFirst);
         size++;
         setR();
+        if (leftMove(nextLast) == nextFirst) {
+            isFull = true;
+        }
     }
 
     // find the next last after inserting
@@ -94,6 +100,9 @@ public class ArrayDeque<MyType> {
         nextLast = rightMove(nextLast);
         size++;
         setR();
+        if (leftMove(nextLast) == nextFirst) {
+            isFull = true;
+        }
     }
 
     // if array is empty, return true
@@ -118,13 +127,16 @@ public class ArrayDeque<MyType> {
     // remove and return first, or return null
     public MyType removeFirst() {
         nextFirst = rightMove(nextFirst);
-        if (nextFirst == nextLast) {
+        if (nextFirst == nextLast && !isFull) {
             nextFirst = leftMove(nextFirst);
             return null;
         }
         size--;
         MyType res = myNode[nextFirst];
         setR();
+        if (isFull) {
+            isFull = false;
+        }
         if (myNode.length >= minSize && R < 0.25) {
             resizemyNode(myNode.length / 2);
         }
@@ -134,11 +146,14 @@ public class ArrayDeque<MyType> {
     // remove and return last, or return null
     public MyType removeLast() {
         nextLast = leftMove(nextLast);
-        if (nextLast == nextFirst) {
+        if (nextLast == nextFirst && !isFull) {
             nextLast = rightMove(nextLast);
             return null;
         }
         size--;
+        if (isFull) {
+            isFull = false;
+        }
         MyType res = myNode[nextLast];
         setR();
         if (myNode.length >= minSize && R < 0.25) {

@@ -1,5 +1,4 @@
 package deque;
-import jh61b.junit.In;
 import org.junit.Test;
 import static org.junit.Assert.*;
 public class ArrayDequeTest {
@@ -110,5 +109,21 @@ public class ArrayDequeTest {
             int t = ad2.get(i);
             assertEquals(i + 1, t);
         }
+    }
+
+    @Test
+    public void FEF() {
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+        for (int i = 1; i < 9; i ++ ) {
+            ad.addLast(i);
+        }
+        assertEquals(8, ad.size());
+
+        for (int i = 1; i < 9; i ++ ) {
+            ad.removeLast();
+        }
+        assertEquals(0, ad.size());
+
+
     }
 }

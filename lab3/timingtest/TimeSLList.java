@@ -1,4 +1,5 @@
 package timingtest;
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Stopwatch;
 
 /**
@@ -23,6 +24,30 @@ public class TimeSLList {
 
     public static void timeGetLast() {
         // TODO: YOUR CODE HERE
+        int[] nums = new int[] {1000, 2000, 4000, 8000, 16000, 32000, 64000,128000};
+        AList<Integer> Num = new AList<>();
+        AList<Integer> ops = new AList<>();
+        AList<Double> times = new AList<>();
+        for (int num : nums) {
+
+            SLList<Integer> list = new SLList<>();
+
+            Num.addLast(num);
+
+            for (int j = 0; j < num; j++) {
+                list.addLast(j);
+            }
+
+            ops.addLast(10000);
+
+            Stopwatch sw = new Stopwatch();
+            for (int j = 0; j < 10000; j++) {
+                list.getLast();
+            }
+            double time = sw.elapsedTime();
+            times.addLast(time);
+        }
+        printTimingTable(Num, times, ops);
     }
 
 }

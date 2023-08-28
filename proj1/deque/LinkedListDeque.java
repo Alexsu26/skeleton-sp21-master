@@ -122,6 +122,7 @@ public class LinkedListDeque<MyType> {
         return res.item;
     }
 
+    // TODO : use iterator
     // get item in the giving index, 0 is the front; or return null
     public MyType get(int index) {
         if (sentinel.next == null) {
@@ -137,4 +138,6 @@ public class LinkedListDeque<MyType> {
         }
         return null;
     }
+
+    // TODO : add iterator and equals
 }

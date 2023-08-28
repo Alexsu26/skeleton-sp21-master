@@ -170,5 +170,5 @@ public class ArrayDeque<MyType> {
         return myNode[(rightMove(nextFirst) + index) % myNode.length];
     }
 
-
+    // TODO : add iterator and equals method
 }

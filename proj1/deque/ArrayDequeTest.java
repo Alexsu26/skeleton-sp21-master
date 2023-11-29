@@ -123,7 +123,18 @@ public class ArrayDequeTest {
             ad.removeLast();
         }
         assertEquals(0, ad.size());
+    }
 
-
+    @Test
+    public void equalsTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addLast(10);
+        ArrayDeque<Integer> ad2 = new ArrayDeque<>();
+        ad2.addLast(10);
+        assertFalse(ad1.equals(null));
+        assertEquals(ad1, ad1);
+        assertTrue(ad1.equals(ad2));
+        ad2.addLast(20);
+        assertFalse(ad1.equals(ad2));
     }
 }

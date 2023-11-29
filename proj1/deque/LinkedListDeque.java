@@ -1,11 +1,14 @@
 package deque;
+
+import java.util.Iterator;
+
 /**
  * 1. add和remove复杂度为O1
  * 2. get必须遍历，不能递归
  * size必须O1
  * 不在队列中的应该删除
  */
-public class LinkedListDeque<MyType> {
+public class LinkedListDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
     private static class DequeNode<MyType> {
         private MyType item;
         private DequeNode<MyType> prev;
@@ -58,6 +61,7 @@ public class LinkedListDeque<MyType> {
         return getRecursiveHelp(sentinel.next, index);
     }
 
+    @Override
     // add to front
     public void addFirst(MyType item) {
         DequeNode<MyType> temp = new DequeNode<>(item);
@@ -68,6 +72,7 @@ public class LinkedListDeque<MyType> {
         size += 1;
     }
 
+    @Override
     // add to back
     public void addLast(MyType item) {
         DequeNode<MyType> temp = new DequeNode<>(item);
@@ -78,16 +83,13 @@ public class LinkedListDeque<MyType> {
         size += 1;
     }
 
-    // return if the deque is empty
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     // return the #item
     public int size() {
         return  size;
     }
 
+    @Override
     // print all item separated by one space, with a new line
     public void printDeque() {
         DequeNode<MyType> temp = sentinel;
@@ -98,6 +100,7 @@ public class LinkedListDeque<MyType> {
         System.out.println();
     }
 
+    @Override
     // remove and return the first item, or return null
     public MyType removeFirst() {
         if (sentinel.next == sentinel) {
@@ -110,6 +113,7 @@ public class LinkedListDeque<MyType> {
         return res.item;
     }
 
+    @Override
     // remove and return the last item, or return null
     public MyType removeLast() {
         if (sentinel.next == sentinel) {
@@ -122,7 +126,7 @@ public class LinkedListDeque<MyType> {
         return res.item;
     }
 
-    // TODO : use iterator
+    @Override
     // get item in the giving index, 0 is the front; or return null
     public MyType get(int index) {
         if (sentinel.next == null) {
@@ -139,5 +143,52 @@ public class LinkedListDeque<MyType> {
         return null;
     }
 
-    // TODO : add iterator and equals
+
+    // implements the iterator method
+    public Iterator<MyType> iterator() {
+        return new LinkedListDequeIterator();
+    }
+
+    // help method of iterator
+    private class LinkedListDequeIterator implements Iterator<MyType> {
+        DequeNode<MyType> p = sentinel.next;
+
+        @Override
+        public boolean hasNext() {
+            return p != sentinel;
+        }
+
+        @Override
+        public MyType next() {
+            MyType item = p.item;
+            p = p.next;
+            return item;
+        }
+    }
+
+    // equals method
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (this == o) {
+            return true;
+        }
+        if (this.getClass() != o.getClass()) {
+            return false;
+        }
+        LinkedListDeque<MyType> other = (LinkedListDeque<MyType>) o;
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i) != other.get(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

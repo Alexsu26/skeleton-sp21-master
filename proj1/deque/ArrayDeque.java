@@ -7,9 +7,9 @@ import java.util.Iterator;
  *  3. 数组初始size = 8
  *  4. 使用因子小于0.25时，数组长度减半
  */
-public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
-    private MyType[] myNode;
+    private T[] myNode;
     private int size;
     private int nextFirst;
     private int nextLast;
@@ -21,7 +21,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     // create an empty array
     public ArrayDeque() {
-        myNode = (MyType[]) new Object[8];
+        myNode = (T[]) new Object[8];
         size = 0;
         nextFirst = 7;
         nextLast = 0;
@@ -30,8 +30,8 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
     }
 
     // create a deep copy of other
-    public ArrayDeque(ArrayDeque<MyType> other) {
-        myNode = (MyType[]) new Object[8];
+    public ArrayDeque(ArrayDeque<T> other) {
+        myNode = (T[]) new Object[8];
         size = 0;
         nextFirst = 7;
         nextLast = 0;
@@ -49,7 +49,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     // resize the array
     private void resizemyNode(int newSize) {
-        MyType[] temp = (MyType[]) new Object[newSize];
+        T[] temp = (T[]) new Object[newSize];
         nextFirst = rightMove(nextFirst);
         nextLast = leftMove(nextLast);
         int cnt = 0;
@@ -72,7 +72,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     @Override
     // add to front
-    public void addFirst(MyType item) {
+    public void addFirst(T item) {
         if (size == myNode.length) {
             resizemyNode(2 * size);
         }
@@ -93,7 +93,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     @Override
     // add to last
-    public void addLast(MyType item) {
+    public void addLast(T item) {
         // array is full
         if (size == myNode.length) {
             resizemyNode(2 * size);
@@ -116,7 +116,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
     @Override
     // print items separated by one space, with a new line in the end
     public void printDeque() {
-        for (MyType x : myNode) {
+        for (T x : myNode) {
             System.out.print(x + " ");
         }
         System.out.println();
@@ -124,14 +124,14 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     @Override
     // remove and return first, or return null
-    public MyType removeFirst() {
+    public T removeFirst() {
         nextFirst = rightMove(nextFirst);
         if (nextFirst == nextLast && !isFull) {
             nextFirst = leftMove(nextFirst);
             return null;
         }
         size--;
-        MyType res = myNode[nextFirst];
+        T res = myNode[nextFirst];
         setR();
         if (isFull) {
             isFull = false;
@@ -145,7 +145,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     @Override
     // remove and return last, or return null
-    public MyType removeLast() {
+    public T removeLast() {
         nextLast = leftMove(nextLast);
         if (nextLast == nextFirst && !isFull) {
             nextLast = rightMove(nextLast);
@@ -155,7 +155,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
         if (isFull) {
             isFull = false;
         }
-        MyType res = myNode[nextLast];
+        T res = myNode[nextLast];
         setR();
         if (myNode.length >= minSize && R < 0.25) {
             resizemyNode(myNode.length / 2);
@@ -165,7 +165,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
     @Override
     // get ith item, or return null
-    public MyType get(int index) {
+    public T get(int index) {
         if (index > myNode.length - 1) {
             return null;
         }
@@ -174,12 +174,12 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
 
 
     // make the class iterable
-    public Iterator<MyType> iterator() {
+    public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
 
     // help method of iterator
-    private class ArrayDequeIterator implements Iterator<MyType> {
+    private class ArrayDequeIterator implements Iterator<T> {
         private int firstIdx = rightMove(nextFirst);
         @Override
         public boolean hasNext() {
@@ -187,8 +187,8 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
         }
 
         @Override
-        public MyType next() {
-            MyType item = myNode[firstIdx];
+        public T next() {
+            T item = myNode[firstIdx];
             firstIdx = rightMove(firstIdx);
             return item;
         }
@@ -206,7 +206,7 @@ public class ArrayDeque<MyType> implements Deque<MyType>, Iterable<MyType> {
         if (this.getClass() != o.getClass()) {
             return false;
         }
-        ArrayDeque<MyType> other = (ArrayDeque<MyType>) o;
+        ArrayDeque<T> other = (ArrayDeque<T>) o;
         if (this.size() != other.size()) {
             return false;
         }

@@ -9,18 +9,18 @@ import java.util.Comparator;
  *
  */
 
-public class MaxArrayDeque<MyType> extends ArrayDeque<MyType> {
-    private Comparator<MyType> comparator;
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
+    private Comparator<T> comparator;
     //
-    public MaxArrayDeque(Comparator<MyType> c) {
+    public MaxArrayDeque(Comparator<T> c) {
         comparator = c;
     }
 
-    public MyType max() {
+    public T max() {
         return max(comparator);
     }
 
-    public MyType max(Comparator<MyType> c) {
+    public T max(Comparator<T> c) {
         if (isEmpty()) {
             return null;
         }
@@ -44,7 +44,7 @@ public class MaxArrayDeque<MyType> extends ArrayDeque<MyType> {
         if (this.getClass() != o.getClass()) {
             return false;
         }
-        MaxArrayDeque<MyType> other = (MaxArrayDeque<MyType>) o;
+        MaxArrayDeque<T> other = (MaxArrayDeque<T>) o;
         for (int i = 0; i < this.size(); i++) {
             if (comparator.compare(this.get(i), other.get(i)) != 0) {
                 return false;

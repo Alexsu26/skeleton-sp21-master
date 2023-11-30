@@ -10,16 +10,16 @@ import java.util.Iterator;
  */
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private static class DequeNode<T> {
-        private T item;
+        private final T item;
         private DequeNode<T> prev;
         private DequeNode<T> next;
 
-        public DequeNode(T i) {
+        DequeNode(T i) {
             item = i;
         }
     }
 
-    private DequeNode<T> sentinel;
+    private final DequeNode<T> sentinel;
     private int size;
 
     // create empty LinkedList
@@ -30,6 +30,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         size = 0;
     }
 
+    /**
     // create a deep copy of other (last to do)
     public LinkedListDeque(LinkedListDeque<T> other) {
         DequeNode<T> t = other.sentinel;
@@ -42,6 +43,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             this.addLast(t.item);
         }
     }
+     */
 
     private T getRecursiveHelp(DequeNode<T> node, int index) {
         if (index == 0) {

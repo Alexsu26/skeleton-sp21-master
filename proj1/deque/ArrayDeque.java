@@ -15,7 +15,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int nextLast;
     private double R;
 
-    final int minSize = 16;
+    private final int minSize = 16;
     private boolean isFull;
 
 
@@ -29,6 +29,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         isFull = false;
     }
 
+    /*
     // create a deep copy of other
     public ArrayDeque(ArrayDeque<T> other) {
         myNode = (T[]) new Object[8];
@@ -41,6 +42,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             addLast(other.get(i));
         }
     }
+    */
 
     // reset R = size / myNode.length
     private void setR() {

@@ -33,6 +33,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         return get(maxIdx);
     }
 
+    /**
     @Override
     public boolean equals(Object o) {
         if (o == null) {
@@ -52,5 +53,6 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         }
         return true;
     }
+    */
 
 }

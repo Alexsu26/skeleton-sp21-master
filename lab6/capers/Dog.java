@@ -61,15 +61,7 @@ public class Dog implements Serializable { // TODO
         // TODO (hint: don't forget dog names are unique)
         File dog = Utils.join(DOG_FOLDER, this.name);
 
-        if (!dog.exists()) {
-            try {
-                dog.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        Utils.writeObject(dog, (Serializable) new Dog(this.name, this.breed, this.age));
+        Utils.writeObject(dog, this);
     }
 
     @Override
